@@ -1,4 +1,5 @@
 [#ftl]
+[#import "/spring.ftl" as spring]
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -10,13 +11,43 @@
 <div class="container">
     <form class="kosik" action="/cokolada" method="post">
         <h1>Objednávka čokolády</h1>
-        <!--
-        Formulář bude obsahovat:
-        * výběr z druhů čokolády, např.: mléčná, bíla, hořká (select)
-        * Jméno a příjmení (input)
-        * e-mail – volitelný údaj (input)
-        * souhlas s obchodními podmínkami (check box)
-        -->
+        <label for="zbozi" class="radek">Zboží:</label>
+        [@spring.formSingleSelect path="form.zbozi" options={
+        "": "",
+        "1": "Hořká",
+        "2": "Mléčná",
+        "3": "Bílá",
+        "4": "Jahodová",
+        "5": "Mandlová",
+        "6": "Nugátová"
+        } /]
+        <div class="error">[@spring.showErrors "<br>"/]</div>
+        <label for="jmeno" class="radek">Jméno a příjmení:</label>
+        [@spring.formInput path="form.jmeno" /]
+        <div class="error">[@spring.showErrors "<br>"/]</div>
+        <label for="vek" class="radek">Věk:</label>
+        [@spring.formInput path="form.vek" fieldType="number" /]
+        <div class="error">[@spring.showErrors "<br>"/]</div>
+
+        <label for="email" class="radek">E-mail:</label>
+        [@spring.formInput path="form.email" fieldType="email" /]
+        <div class="error">[@spring.showErrors "<br>"/]</div>
+
+        <div class="radek">
+            [@spring.formCheckbox path="form.obchodniPodminky" /]
+            <label for="obchodniPodminky">Souhlasím s obchodními podmínkami</label>
+        </div>
+        <div class="error">[@spring.showErrors "<br>"/]</div>
+
+        <div class="radek">
+            [@spring.formCheckbox path="form.newsletter" /]
+            <label for="newsletter">Souhlasím se zasíláním newsletterů</label>
+        </div>
+        <div class="error">[@spring.showErrors "<br>"/]</div>
+
+        <div class="radek controls">
+            <button type="submit">Objednat</button>
+        </div>
     </form>
 </div>
 </body>

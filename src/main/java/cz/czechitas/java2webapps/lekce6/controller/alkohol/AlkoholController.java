@@ -20,14 +20,14 @@ public class AlkoholController {
   private final Random random = new Random();
 
   @GetMapping("")
-  public ModelAndView index() {
+  public String index(@ModelAttribute("form") AlkoholForm form) {
     ModelAndView modelAndView = new ModelAndView("/alkohol/formular");
-    modelAndView.addObject("form", new AlkoholForm());
-    return modelAndView;
+    return "/alkohol/formular";
   }
 
   @PostMapping("")
   public Object form(@Valid @ModelAttribute("form") AlkoholForm form, BindingResult bindingResult) {
+
 /*
     if (form.getVek() < 18) {
       return "/alkohol/nizky-vek";
